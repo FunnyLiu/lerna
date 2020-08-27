@@ -6,6 +6,7 @@ const childProcess = require("@lerna/child-process");
 module.exports = getLastCommit;
 
 function getLastCommit(execOpts) {
+  //如果打过tag，则寻找上一次打tag的提交记录
   if (hasTags(execOpts)) {
     log.silly("getLastTagInBranch");
 
@@ -13,6 +14,7 @@ function getLastCommit(execOpts) {
   }
 
   log.silly("getFirstCommit");
+  //获取第一次提交
   return childProcess.execSync("git", ["rev-list", "--max-parents=0", "HEAD"], execOpts);
 }
 
